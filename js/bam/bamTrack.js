@@ -914,8 +914,25 @@ AlignmentTrack.prototype.draw = function (options) {
                         }
                     }
                 }
-            }
-        }
+				
+				// Legend to the right
+				
+				if(alignment.tags()['NM']) {
+					const readName = alignment.tags()['NM'];
+					const xPixel = (arrowHeadWidthPixel * 2) + (block.start + block.len -bpStart) / bpPerPixel;
+					const widthPixel = 1;
+					const fontHeight = Math.min(10, alignmentHeight);
+					ctx.font = '' + fontHeight + 'px sans-serif';
+					const fillStyle = IGVColor.greyScale(68);
+					if(readName.indexOf('i') == 1) {
+						fillStyle = 'black';
+					}
+					
+					IGVGraphics.fillText(ctx, readName, xPixel, fontHeight - 1 + yRect, {fillStyle: fillStyle});
+				}
+			}
+		}
+
 
         function renderBlockOrReadChar(context, bpp, bbox, color, char) {
             var threshold,
